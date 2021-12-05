@@ -1,0 +1,7 @@
+{
+  "name": "MyGrad",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
