@@ -32,6 +32,7 @@ import "@ionic/react/css/display.css";
 
 /* Theme variables */
 import "./theme/variables.css";
+import AddEvent from "./pages/AddEvent";
 
 const App: React.FC = () => (
   <IonApp>
@@ -49,6 +50,10 @@ const App: React.FC = () => (
           </Route>
           <Route exact path="/">
             <Redirect to="/tab1" />
+          </Route>
+
+          <Route exact path="/secret/add">
+            <AddEvent />
           </Route>
         </IonRouterOutlet>
         <IonTabBar slot="bottom">

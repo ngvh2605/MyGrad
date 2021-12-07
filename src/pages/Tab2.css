@@ -1,0 +1,32 @@
+ion-item {
+  --background: transparent;
+  --padding-end: 0px;
+  --inner-padding-end: 0px;
+  --padding-start: 0px;
+  --inner-padding-start: 0px;
+}
+
+ion-thumbnail {
+  --border-radius: 8px;
+}
+
+ion-text {
+  color: white;
+}
+
+.vl {
+  border-left: 1px solid var(--ion-color-primary);
+  height: 100px;
+}
+
+ion-grid,
+ion-col,
+ion-row {
+  padding: 0px;
+  margin: 0px;
+}
+
+ion-content ion-text,
+ion-content ion-label {
+  color: white;
+}

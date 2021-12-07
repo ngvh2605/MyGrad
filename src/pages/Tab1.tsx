@@ -102,9 +102,10 @@ const Tab1: React.FC = () => {
       <IonContent fullscreen>
         <IonCard>
           <IonCardContent>
-            <div style={{ textAlign: "center" }}>
-              <IonLabel>Save the date</IonLabel>
+            <div style={{ textAlign: "center", marginBottom: 8 }}>
+              <IonLabel color="primary">S A V E - T H E - D A T E !</IonLabel>
             </div>
+
             <Countdown
               date={moment("2021-12-15T15:30:00+11:00").toDate()}
               renderer={renderer}
