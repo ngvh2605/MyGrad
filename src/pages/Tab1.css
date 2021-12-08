@@ -1,8 +1,12 @@
-ion-list-header {
+#home-page ion-list-header {
   color: white;
 }
 
-ion-content ion-text,
-ion-content ion-label {
+#home-page ion-content ion-card ion-label {
   color: white;
+}
+
+#home-page .text-highlight {
+  color: var(--ion-color-primary);
+  font-weight: bold;
 }

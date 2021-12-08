@@ -41,7 +41,11 @@ export const resizeImage = async (url: string, maxSize: number) => {
   };
 };
 
-async function urltoFile(url: string, filename: string, mimeType: string) {
+export async function urltoFile(
+  url: string,
+  filename: string,
+  mimeType: string
+) {
   return fetch(url)
     .then(function (res) {
       return res.arrayBuffer();
@@ -51,8 +55,16 @@ async function urltoFile(url: string, filename: string, mimeType: string) {
     });
 }
 
-const AddEvent: React.FC = () => {
+export const uploadFile = async (file: File) => {
   const { Upload } = require("upload-js");
+  const upload = new Upload({
+    apiKey: "public_FW25aknBG4VgSpCGGMeimpBsf9Qd",
+  });
+  const { fileUrl, fileId } = await upload.uploadFile({ file });
+  return fileUrl;
+};
+
+const AddEvent: React.FC = () => {
   const [event, setEvent] = useState<EventItem>({
     description: "",
     media: [],
@@ -94,14 +106,6 @@ const AddEvent: React.FC = () => {
         title: "",
       });
     });
-  };
-
-  const uploadFile = async (file: File) => {
-    const upload = new Upload({
-      apiKey: "public_FW25aknBG4VgSpCGGMeimpBsf9Qd",
-    });
-    const { fileUrl, fileId } = await upload.uploadFile({ file });
-    return fileUrl;
   };
 
   return (

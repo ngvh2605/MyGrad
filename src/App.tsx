@@ -9,7 +9,14 @@ import {
   IonTabs,
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
-import { ellipse, square, triangle } from "ionicons/icons";
+import {
+  ellipse,
+  footsteps,
+  planet,
+  sparkles,
+  square,
+  triangle,
+} from "ionicons/icons";
 import Tab1 from "./pages/Tab1";
 import Tab2 from "./pages/Tab2";
 import Tab3 from "./pages/Tab3";
@@ -33,6 +40,7 @@ import "@ionic/react/css/display.css";
 /* Theme variables */
 import "./theme/variables.css";
 import AddEvent from "./pages/AddEvent";
+import AddGradCard from "./pages/AddGradCard";
 
 const App: React.FC = () => (
   <IonApp>
@@ -55,19 +63,22 @@ const App: React.FC = () => (
           <Route exact path="/secret/add">
             <AddEvent />
           </Route>
+          <Route exact path="/addnew">
+            <AddGradCard />
+          </Route>
         </IonRouterOutlet>
         <IonTabBar slot="bottom">
           <IonTabButton tab="home" href="/home">
-            <IonIcon icon={triangle} />
+            <IonIcon icon={planet} />
             <IonLabel>Home Page</IonLabel>
           </IonTabButton>
           <IonTabButton tab="gradcard" href="/gradcard">
-            <IonIcon icon={square} />
+            <IonIcon icon={sparkles} />
             <IonLabel>Graduation Card</IonLabel>
           </IonTabButton>
           <IonTabButton tab="unilife" href="/unilife">
-            <IonIcon icon={ellipse} />
-            <IonLabel>My Unilife</IonLabel>
+            <IonIcon icon={footsteps} />
+            <IonLabel>My UniLife</IonLabel>
           </IonTabButton>
         </IonTabBar>
       </IonTabs>

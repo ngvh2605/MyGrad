@@ -1,4 +1,4 @@
-ion-item {
+#unilife-page ion-item {
   --background: transparent;
   --padding-end: 0px;
   --inner-padding-end: 0px;
@@ -6,27 +6,27 @@ ion-item {
   --inner-padding-start: 0px;
 }
 
-ion-thumbnail {
+#unilife-page ion-thumbnail {
   --border-radius: 8px;
 }
 
-ion-text {
+#unilife-page ion-text {
   color: white;
 }
 
-.vl {
+#unilife-page .vl {
   border-left: 1px solid var(--ion-color-primary);
   height: 100px;
 }
 
-ion-grid,
-ion-col,
-ion-row {
+#unilife-page ion-grid,
+#unilife-page ion-col,
+#unilife-page ion-row {
   padding: 0px;
   margin: 0px;
 }
 
-ion-content ion-text,
-ion-content ion-label {
+#unilife-page ion-content ion-text,
+#unilife-page ion-content ion-label {
   color: white;
 }
