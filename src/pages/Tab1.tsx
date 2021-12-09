@@ -36,8 +36,6 @@ import { useHistory } from "react-router";
 const Tab1: React.FC = () => {
   const history = useHistory();
 
-  const [coverLoad, setCoverLoad] = useState(true);
-
   const renderer = ({
     days,
     hours,
@@ -99,45 +97,57 @@ const Tab1: React.FC = () => {
     );
   };
 
+  const CoverImage = () => {
+    const [coverLoad, setCoverLoad] = useState(true);
+
+    return (
+      <IonCard>
+        <IonThumbnail
+          style={{
+            width: window.innerWidth - 32,
+            height: ((window.innerWidth - 32) * 9) / 16,
+          }}
+        >
+          <IonImg
+            src="https://files.upload.io/FW25aknGfyL9jZDPisgZM4A"
+            onIonImgDidLoad={() => {
+              console.log("run");
+              setCoverLoad(false);
+            }}
+            style={
+              coverLoad ? { opacity: 0, width: 0, height: 0 } : { opacity: 1 }
+            }
+          />
+          {coverLoad && (
+            <IonSkeletonText
+              animated
+              style={{
+                width: window.innerWidth - 32,
+                height: ((window.innerWidth - 32) * 9) / 16,
+                margin: 0,
+              }}
+            />
+          )}
+        </IonThumbnail>
+      </IonCard>
+    );
+  };
+
   return (
     <IonPage id="home-page">
-      {/* <IonHeader>
+      <IonHeader>
         <IonToolbar>
-          <IonTitle>Home</IonTitle>
+          <IonTitle>Home Page</IonTitle>
         </IonToolbar>
-      </IonHeader> */}
+      </IonHeader>
       <IonContent fullscreen>
-        <IonCard>
-          <IonThumbnail
-            style={{
-              width: window.innerWidth - 32,
-              height: ((window.innerWidth - 32) * 9) / 16,
-            }}
-          >
-            {coverLoad ? (
-              <IonSkeletonText
-                animated
-                style={{
-                  width: window.innerWidth - 32,
-                  height: ((window.innerWidth - 32) * 9) / 16,
-                  margin: 0,
-                }}
-              />
-            ) : (
-              <></>
-            )}
-            <IonImg
-              src="https://files.upload.io/FW25aknGfyL9jZDPisgZM4A"
-              onIonImgDidLoad={() => {
-                console.log("run");
-                setCoverLoad(false);
-              }}
-              style={
-                coverLoad ? { opacity: 0, width: 0, height: 0 } : { opacity: 1 }
-              }
-            />
-          </IonThumbnail>
-        </IonCard>
+        <IonHeader collapse="condense">
+          <IonToolbar>
+            <IonTitle size="large">Home Page</IonTitle>
+          </IonToolbar>
+        </IonHeader>
+
+        <CoverImage />
         <IonCard>
           <IonCardContent>
             <div style={{ textAlign: "center", marginBottom: 8 }}>

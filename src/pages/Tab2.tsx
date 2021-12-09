@@ -23,16 +23,23 @@ import {
 } from "@ionic/react";
 import { logoLinkedin } from "ionicons/icons";
 import moment from "moment";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import ExploreContainer from "../components/ExploreContainer";
 import { firestore } from "../firebase";
 import "./Tab2.css";
+import ImageViewer from "react-simple-image-viewer";
 
 export interface EventItem {
   description: string;
   media: string[];
   timestamp: string;
   title: string;
+  isLoad?: boolean;
+}
+
+interface MediaItem {
+  url: string;
+  isLoad: boolean;
 }
 
 const Tab2: React.FC = () => {
@@ -44,91 +51,35 @@ const Tab2: React.FC = () => {
       const q = query(collection(firestore, "unilife"));
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
-        temp.push(doc.data() as EventItem);
+        temp.push({ isLoad: true, ...doc.data() } as EventItem);
       });
       setEvents(temp);
     })();
   }, []);
 
-  const EventCard = ({ event }: { event: EventItem }) => {
-    const [isLoad, setIsLoad] = useState(true);
-
-    return (
-      <IonCard>
-        <IonCardContent>
-          <IonItem lines="none">
-            <IonNote slot="start">
-              <div style={{ textAlign: "center" }}>
-                <IonText>
-                  <p>{moment(event.timestamp).format("MMM")}</p>
-                  <h2 style={{ fontSize: "x-large" }}>
-                    <b>{moment(event.timestamp).format("DD")}</b>
-                  </h2>
-                  <p>{moment(event.timestamp).format("YYYY")}</p>
-                </IonText>
-              </div>
-            </IonNote>
-            <IonNote slot="start">
-              <div className="vl"></div>
-            </IonNote>
-            <IonGrid>
-              <IonRow>
-                <div>
-                  <IonCardSubtitle color="primary">
-                    {event.title}
-                  </IonCardSubtitle>
-                  <IonLabel text-wrap>{event.description}</IonLabel>
-                </div>
-              </IonRow>
-              <IonRow>
-                {event.media?.map((item, index) => (
-                  <IonThumbnail
-                    style={{
-                      marginTop: 8,
-                      marginRight: 8,
-                    }}
-                    key={index}
-                  >
-                    {isLoad ? <IonSkeletonText animated /> : <></>}
-                    <IonImg
-                      src={item}
-                      onIonImgDidLoad={() => {
-                        if (
-                          event.media &&
-                          event.media.length > 0 &&
-                          index === event.media.length - 1
-                        )
-                          setIsLoad(false);
-                      }}
-                      style={
-                        isLoad
-                          ? { opacity: 0, width: 0, height: 0 }
-                          : { opacity: 1 }
-                      }
-                    />
-                  </IonThumbnail>
-                ))}
-              </IonRow>
-            </IonGrid>
-          </IonItem>
-        </IonCardContent>
-      </IonCard>
-    );
+  const [isViewerOpen, setIsViewerOpen] = useState(false);
+  const [images, setImages] = useState<string[]>([""]);
+  const closeImageViewer = () => {
+    setIsViewerOpen(false);
   };
 
   return (
     <IonPage id="unilife-page">
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>My UniLife</IonTitle>
-        </IonToolbar>
-      </IonHeader>
-      <IonContent fullscreen>
-        <IonHeader collapse="condense">
+      {!isViewerOpen && (
+        <IonHeader>
           <IonToolbar>
-            <IonTitle size="large">My UniLife</IonTitle>
+            <IonTitle>My UniLife</IonTitle>
           </IonToolbar>
         </IonHeader>
+      )}
+      <IonContent fullscreen>
+        {!isViewerOpen && (
+          <IonHeader collapse="condense">
+            <IonToolbar>
+              <IonTitle size="large">My UniLife</IonTitle>
+            </IonToolbar>
+          </IonHeader>
+        )}
 
         <IonButton
           expand="block"
@@ -147,15 +98,87 @@ const Tab2: React.FC = () => {
             <i>Still updating my story, stay tuned 😉</i>
           </IonLabel>
         </div>
-        {events &&
-          events.length > 0 &&
-          events
-            .sort((a, b) => {
-              return (
-                moment(b.timestamp).valueOf() - moment(a.timestamp).valueOf()
-              );
-            })
-            .map((event, index) => <EventCard event={event} key={index} />)}
+        <IonList>
+          {events &&
+            events.length > 0 &&
+            events
+              .sort((a, b) => {
+                return (
+                  moment(b.timestamp).valueOf() - moment(a.timestamp).valueOf()
+                );
+              })
+              .map((event, index) => (
+                <IonCard key={index}>
+                  <IonCardContent>
+                    <IonItem lines="none">
+                      <IonNote slot="start">
+                        <div style={{ textAlign: "center" }}>
+                          <IonText>
+                            <p>{moment(event.timestamp).format("MMM")}</p>
+                            <h2 style={{ fontSize: "x-large" }}>
+                              <b>{moment(event.timestamp).format("DD")}</b>
+                            </h2>
+                            <p>{moment(event.timestamp).format("YYYY")}</p>
+                          </IonText>
+                        </div>
+                      </IonNote>
+                      <IonNote slot="start">
+                        <div className="vl"></div>
+                      </IonNote>
+                      <IonGrid>
+                        <IonRow>
+                          <div>
+                            <IonCardSubtitle color="primary">
+                              {event.title}
+                            </IonCardSubtitle>
+                            <IonLabel text-wrap>{event.description}</IonLabel>
+                          </div>
+                        </IonRow>
+                        <IonRow>
+                          {event.media?.map((item, medex) => (
+                            <IonThumbnail
+                              style={{
+                                marginTop: 8,
+                                marginRight: 8,
+                              }}
+                              key={medex}
+                            >
+                              <IonImg
+                                src={item}
+                                onClick={() => {
+                                  setImages([item]);
+                                  setIsViewerOpen(true);
+                                }}
+                                onIonImgDidLoad={() => {
+                                  let temp = [...events];
+                                  temp[index].isLoad = false;
+                                  setEvents(temp);
+                                }}
+                                style={
+                                  event.isLoad
+                                    ? { opacity: 0, width: 0, height: 0 }
+                                    : { opacity: 1 }
+                                }
+                              />
+                              {event.isLoad && <IonSkeletonText animated />}
+                            </IonThumbnail>
+                          ))}
+                        </IonRow>
+                      </IonGrid>
+                    </IonItem>
+                  </IonCardContent>
+                </IonCard>
+              ))}
+        </IonList>
+        {isViewerOpen && (
+          <ImageViewer
+            src={images}
+            currentIndex={0}
+            disableScroll={false}
+            closeOnClickOutside={true}
+            onClose={closeImageViewer}
+          />
+        )}
       </IonContent>
     </IonPage>
   );
