@@ -107,7 +107,7 @@ const Tab1: React.FC = () => {
         </IonToolbar>
       </IonHeader> */}
       <IonContent fullscreen>
-        <div className="card-item">
+        <IonCard>
           <IonThumbnail
             style={{
               width: window.innerWidth - 32,
@@ -137,7 +137,7 @@ const Tab1: React.FC = () => {
               }
             />
           </IonThumbnail>
-        </div>
+        </IonCard>
         <IonCard>
           <IonCardContent>
             <div style={{ textAlign: "center", marginBottom: 8 }}>
@@ -217,7 +217,7 @@ const Tab1: React.FC = () => {
           Recommend / Endorse me
         </IonButton>
 
-        <IonListHeader>My UniLife</IonListHeader>
+        {/* <IonListHeader>My UniLife</IonListHeader>
         <IonGrid className="ion-no-padding">
           <IonRow className="ion-padding-horizontal">
             <IonCol className="ion-no-padding">
@@ -262,7 +262,10 @@ const Tab1: React.FC = () => {
               </IonCardContent>
             </IonCard>
           </IonSlide>
-        </IonSlides>
+        </IonSlides> */}
+        <br />
+        <br />
+        <br />
       </IonContent>
     </IonPage>
   );

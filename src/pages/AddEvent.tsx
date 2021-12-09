@@ -19,7 +19,7 @@ import ExploreContainer from "../components/ExploreContainer";
 import { firestore } from "../firebase";
 import { EventItem } from "./Tab2";
 import "./Tab2.css";
-import { Camera, CameraResultType } from "@capacitor/camera";
+import { Camera, CameraResultType, CameraSource } from "@capacitor/camera";
 import jimp from "jimp";
 
 export const resizeImage = async (url: string, maxSize: number) => {
@@ -75,14 +75,19 @@ const AddEvent: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleAddImage = async () => {
-    Camera.pickImages({}).then((images) => {
-      let temp: string[] = [];
-      images.photos.forEach(async (image) => {
-        const data = await resizeImage(image.webPath, 1024);
-        temp.push(data.imageUrl);
+    try {
+      const photo = await Camera.getPhoto({
+        quality: 4,
+        source: CameraSource.Photos,
+        resultType: CameraResultType.Uri,
+        correctOrientation: false,
       });
-      setEvent({ ...event, media: temp });
-    });
+
+      const data = await resizeImage(photo.webPath!, 1024);
+      let temp = { ...event };
+      temp.media.push(data.imageUrl);
+      setEvent(temp);
+    } catch (e) {}
   };
 
   const handleAddEvent = async () => {
@@ -101,15 +106,14 @@ const AddEvent: React.FC = () => {
 
     await setDoc(doc(firestore, "unilife", moment().format()), {
       ...temp,
-    }).then(() => {
-      setEvent({
-        description: "",
-        media: [],
-        timestamp: moment().format("YYYY/MM/DD"),
-        title: "",
-      });
     });
 
+    setEvent({
+      description: "",
+      media: [],
+      timestamp: moment().format("YYYY/MM/DD"),
+      title: "",
+    });
     setIsLoading(false);
   };
 
@@ -121,7 +125,18 @@ const AddEvent: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen className="ion-padding">
-        <IonButton onClick={() => console.log(event)}>Print</IonButton>
+        <IonButton
+          onClick={() =>
+            setEvent({
+              description: "",
+              media: [],
+              timestamp: moment().format("YYYY/MM/DD"),
+              title: "",
+            })
+          }
+        >
+          Print
+        </IonButton>
         <IonInput
           placeholder="Title"
           value={event.title}

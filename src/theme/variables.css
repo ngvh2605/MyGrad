@@ -110,10 +110,3 @@ ion-card {
 .text-required {
   color: var(--ion-color-danger);
 }
-
-.card-item {
-  margin: 24px 16px;
-}
-.card-item ion-thumbnail {
-  --border-radius: 8px;
-}

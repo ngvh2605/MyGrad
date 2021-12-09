@@ -30,7 +30,7 @@ import "./Tab2.css";
 
 export interface EventItem {
   description: string;
-  media?: string[];
+  media: string[];
   timestamp: string;
   title: string;
 }
@@ -140,6 +140,13 @@ const Tab2: React.FC = () => {
           <IonIcon icon={logoLinkedin} slot="start" />
           Recommend / Endorse me
         </IonButton>
+
+        <div style={{ textAlign: "center" }}>
+          <br />
+          <IonLabel text-wrap>
+            <i>Still updating my story, stay tuned 😉</i>
+          </IonLabel>
+        </div>
         {events &&
           events.length > 0 &&
           events

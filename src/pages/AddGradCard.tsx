@@ -74,6 +74,10 @@ const AddGradCard = () => {
       history.goBack();
     });
 
+    presentAlert({
+      message: "Thank you very much for being a part of my life story!",
+      buttons: [{ text: "I love U" }],
+    });
     setIsLoading(false);
   };
 
