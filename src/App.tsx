@@ -7,6 +7,7 @@ import {
   IonTabBar,
   IonTabButton,
   IonTabs,
+  setupConfig,
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 import {
@@ -42,48 +43,51 @@ import "./theme/variables.css";
 import AddEvent from "./pages/AddEvent";
 import AddGradCard from "./pages/AddGradCard";
 
-const App: React.FC = () => (
-  <IonApp>
-    <IonReactRouter>
-      <IonTabs>
-        <IonRouterOutlet>
-          <Route exact path="/home">
-            <Tab1 />
-          </Route>
-          <Route exact path="/unilife">
-            <Tab2 />
-          </Route>
-          <Route path="/gradcard">
-            <Tab3 />
-          </Route>
-          <Route exact path="/">
-            <Redirect to="/home" />
-          </Route>
+const App: React.FC = () => {
+  setupConfig({ mode: "ios" });
+  return (
+    <IonApp>
+      <IonReactRouter>
+        <IonTabs>
+          <IonRouterOutlet>
+            <Route exact path="/home">
+              <Tab1 />
+            </Route>
+            <Route exact path="/unilife">
+              <Tab2 />
+            </Route>
+            <Route path="/gradcard">
+              <Tab3 />
+            </Route>
+            <Route exact path="/">
+              <Redirect to="/home" />
+            </Route>
 
-          <Route exact path="/secret/add">
-            <AddEvent />
-          </Route>
-          <Route exact path="/addnew">
-            <AddGradCard />
-          </Route>
-        </IonRouterOutlet>
-        <IonTabBar slot="bottom">
-          <IonTabButton tab="home" href="/home">
-            <IonIcon icon={planet} />
-            <IonLabel>Home Page</IonLabel>
-          </IonTabButton>
-          <IonTabButton tab="gradcard" href="/gradcard">
-            <IonIcon icon={sparkles} />
-            <IonLabel>Graduation Card</IonLabel>
-          </IonTabButton>
-          <IonTabButton tab="unilife" href="/unilife">
-            <IonIcon icon={footsteps} />
-            <IonLabel>My UniLife</IonLabel>
-          </IonTabButton>
-        </IonTabBar>
-      </IonTabs>
-    </IonReactRouter>
-  </IonApp>
-);
+            <Route exact path="/secret/add">
+              <AddEvent />
+            </Route>
+            <Route exact path="/addnew">
+              <AddGradCard />
+            </Route>
+          </IonRouterOutlet>
+          <IonTabBar slot="bottom">
+            <IonTabButton tab="home" href="/home">
+              <IonIcon icon={planet} />
+              <IonLabel>Home Page</IonLabel>
+            </IonTabButton>
+            <IonTabButton tab="gradcard" href="/gradcard">
+              <IonIcon icon={sparkles} />
+              <IonLabel>Graduation Card</IonLabel>
+            </IonTabButton>
+            <IonTabButton tab="unilife" href="/unilife">
+              <IonIcon icon={footsteps} />
+              <IonLabel>My UniLife</IonLabel>
+            </IonTabButton>
+          </IonTabBar>
+        </IonTabs>
+      </IonReactRouter>
+    </IonApp>
+  );
+};
 
 export default App;

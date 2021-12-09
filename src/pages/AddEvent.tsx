@@ -8,6 +8,7 @@ import {
   IonInput,
   IonItem,
   IonLabel,
+  IonLoading,
   IonPage,
   IonTitle,
   IonToolbar,
@@ -71,6 +72,7 @@ const AddEvent: React.FC = () => {
     timestamp: moment().format("YYYY/MM/DD"),
     title: "",
   });
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleAddImage = async () => {
     Camera.pickImages({}).then((images) => {
@@ -84,12 +86,13 @@ const AddEvent: React.FC = () => {
   };
 
   const handleAddEvent = async () => {
+    setIsLoading(true);
     let temp: EventItem = { ...event };
     if (temp.media)
       for (let item of temp.media) {
         const file: File = await urltoFile(
           item,
-          moment().valueOf() + ".jpeg",
+          "UniLife-" + moment().valueOf() + ".jpeg",
           "image/jpeg"
         );
         const url = await uploadFile(file);
@@ -106,6 +109,8 @@ const AddEvent: React.FC = () => {
         title: "",
       });
     });
+
+    setIsLoading(false);
   };
 
   return (
@@ -144,6 +149,8 @@ const AddEvent: React.FC = () => {
           <IonImg src={media} key={index} style={{ width: 300 }} />
         ))}
         <IonButton onClick={handleAddEvent}>Submit</IonButton>
+
+        <IonLoading isOpen={isLoading} />
       </IonContent>
     </IonPage>
   );
