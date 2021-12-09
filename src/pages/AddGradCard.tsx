@@ -59,7 +59,7 @@ const AddGradCard = () => {
     if (temp.image) {
       const file: File = await urltoFile(
         temp.image,
-        moment().valueOf() + ".jpeg",
+        "GradCard-" + moment().valueOf() + ".jpeg",
         "image/jpeg"
       );
       const url = await uploadFile(file);
