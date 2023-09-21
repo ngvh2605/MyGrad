@@ -136,49 +136,50 @@ const AddGradCard = () => {
         >
           Debug
         </IonButton>
-        <IonList>
-          <IonItem>
-            <IonLabel position="stacked">
-              Your name<span className="text-required">*</span>
-            </IonLabel>
-            <IonInput
-              placeholder="Type here"
-              value={card.name}
-              onIonChange={(e) => setCard({ ...card, name: e.detail.value! })}
-              autocapitalize="words"
-            />
-          </IonItem>
-          <IonItem>
-            <IonLabel position="stacked">
-              Your card message<span className="text-required">*</span>
-            </IonLabel>
-            <IonTextarea
-              placeholder="Write something for me"
-              value={card.message}
-              onIonChange={(e) =>
-                setCard({ ...card, message: e.detail.value! })
-              }
-              autoGrow
-              autocapitalize="sentences"
-            />
-          </IonItem>
-          <IonItem lines="none">
-            <IonLabel position="stacked">
-              Finally, a photo of you or us
-              <span className="text-required">*</span>
-            </IonLabel>
-            {card.image && (
-              <IonCard>
-                <IonImg src={card.image} />
-              </IonCard>
-            )}
-          </IonItem>
-          <IonButton expand="block" onClick={handleAddImage}>
-            <IonIcon icon={image} slot="start" />
-            {card.image ? "Change image" : "Select image"}
-          </IonButton>
-        </IonList>
-
+        <div style={{ maxWidth: 680, margin: "0 auto" }}>
+          <IonList>
+            <IonItem>
+              <IonLabel position="stacked">
+                Your name<span className="text-required">*</span>
+              </IonLabel>
+              <IonInput
+                placeholder="Type here"
+                value={card.name}
+                onIonChange={(e) => setCard({ ...card, name: e.detail.value! })}
+                autocapitalize="words"
+              />
+            </IonItem>
+            <IonItem>
+              <IonLabel position="stacked">
+                Your card message<span className="text-required">*</span>
+              </IonLabel>
+              <IonTextarea
+                placeholder="Write something for me"
+                value={card.message}
+                onIonChange={(e) =>
+                  setCard({ ...card, message: e.detail.value! })
+                }
+                autoGrow
+                autocapitalize="sentences"
+              />
+            </IonItem>
+            <IonItem lines="none">
+              <IonLabel position="stacked">
+                Finally, a photo of you or us
+                <span className="text-required">*</span>
+              </IonLabel>
+              {card.image && (
+                <IonCard>
+                  <IonImg src={card.image} />
+                </IonCard>
+              )}
+            </IonItem>
+            <IonButton expand="block" onClick={handleAddImage}>
+              <IonIcon icon={image} slot="start" />
+              {card.image ? "Change image" : "Select image"}
+            </IonButton>
+          </IonList>
+        </div>
         <IonLoading isOpen={isLoading} />
       </IonContent>
     </IonPage>

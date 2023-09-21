@@ -61,8 +61,12 @@ const Tab3: React.FC = () => {
             animated
             style={{
               width: window.innerWidth - 32,
-              height: (window.innerWidth - 32) / card.ratio,
-              margin: 0,
+              height:
+                window.innerWidth - 32 > 680
+                  ? 648 / card.ratio
+                  : (window.innerWidth - 32) / card.ratio,
+              maxWidth: 680,
+              margin: "0 auto",
             }}
           />
         ) : (
@@ -98,18 +102,20 @@ const Tab3: React.FC = () => {
         </IonHeader>
         {/* <ExploreContainer name="Tab 3 page" /> */}
 
-        <IonButton
-          expand="block"
-          className="ion-padding-horizontal ion-margin-top"
-          onClick={() => history.push("/addnew")}
-        >
-          <IonIcon icon={mail} slot="start" />
-          Write me a Graduation Card
-        </IonButton>
+        <div style={{ maxWidth: 680, margin: "0 auto" }}>
+          <IonButton
+            expand="block"
+            className="ion-padding-horizontal ion-margin-top"
+            onClick={() => history.push("/addnew")}
+          >
+            <IonIcon icon={mail} slot="start" />
+            Write me a Graduation Card
+          </IonButton>
 
-        {cards &&
-          cards.length > 0 &&
-          cards.map((card, index) => <GradCard card={card} key={index} />)}
+          {cards &&
+            cards.length > 0 &&
+            cards.map((card, index) => <GradCard card={card} key={index} />)}
+        </div>
 
         <IonFab
           vertical="bottom"

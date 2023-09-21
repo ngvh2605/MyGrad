@@ -105,11 +105,16 @@ const Tab1: React.FC = () => {
         <IonThumbnail
           style={{
             width: window.innerWidth - 32,
-            height: ((window.innerWidth - 32) * 9) / 16,
+            height:
+              window.innerWidth - 32 > 680
+                ? 364.5
+                : ((window.innerWidth - 32) * 9) / 16,
+            maxWidth: 680,
+            margin: "0 auto",
           }}
         >
           <IonImg
-            src="https://files.upload.io/FW25aknGfyL9jZDPisgZM4A"
+            src="https://upcdn.io/FW25aknGfyL9jZDPisgZM4A"
             onIonImgDidLoad={() => {
               console.log("run");
               setCoverLoad(false);
@@ -146,88 +151,88 @@ const Tab1: React.FC = () => {
             <IonTitle size="large">Home Page</IonTitle>
           </IonToolbar>
         </IonHeader>
+        <div style={{ maxWidth: 680, margin: "0 auto" }}>
+          <CoverImage />
+          <IonCard>
+            <IonCardContent>
+              <div style={{ textAlign: "center", marginBottom: 8 }}>
+                <IonCardSubtitle color="primary">
+                  Vịt Graduation Photoshoot
+                </IonCardSubtitle>
+              </div>
 
-        <CoverImage />
-        <IonCard>
-          <IonCardContent>
-            <div style={{ textAlign: "center", marginBottom: 8 }}>
-              <IonCardSubtitle color="primary">
-                Vịt Graduation Photoshoot
-              </IonCardSubtitle>
-            </div>
+              <Countdown
+                date={moment("2021-12-15T15:30:00+11:00").toDate()}
+                renderer={renderer}
+              />
+            </IonCardContent>
+          </IonCard>
 
-            <Countdown
-              date={moment("2021-12-15T15:30:00+11:00").toDate()}
-              renderer={renderer}
-            />
-          </IonCardContent>
-        </IonCard>
+          <IonCard>
+            <IonCardContent>
+              <div style={{ textAlign: "center", marginBottom: 8 }}>
+                <IonCardSubtitle color="primary">More Info</IonCardSubtitle>
+              </div>
+              <IonLabel text-wrap>
+                Dear friends and network,
+                <br />
+                It is my pleasure to specially invite you to join me for a
+                Graduation Photoshoot
+                <br />
+                When:{" "}
+                <IonText className="text-highlight">
+                  Wednesday (15th December) from 3pm to 4.30pm
+                </IonText>
+                <br />
+                Where:{" "}
+                <IonText className="text-highlight">
+                  University of Wollongong (Duck Pond Lawn meet up point)
+                </IonText>
+                <br />
+                Please be noticed that you will be required to check-in using{" "}
+                <IonText className="text-highlight">
+                  Service NSW QR Code
+                </IonText>{" "}
+                and you will need to bring your{" "}
+                <IonText className="text-highlight">
+                  COVID-19 vaccination certificate
+                </IonText>
+                <br />
+                <IonText className="text-highlight">A face mask</IonText> is
+                required for all indoor areas on campus
+                <br />
+                The best parking will be in the{" "}
+                <IonText className="text-highlight">
+                  P2 Main car park
+                </IonText>{" "}
+                (free of charge)
+                <br />
+                Best regards,
+                <br />
+                Viet Hoang Nguyen.
+              </IonLabel>
+            </IonCardContent>
+          </IonCard>
+          <IonButton
+            expand="block"
+            className="ion-padding-horizontal"
+            onClick={() => history.push("/addnew")}
+          >
+            <IonIcon icon={mail} slot="start" />
+            Write me a Graduation Card
+          </IonButton>
+          <IonButton
+            expand="block"
+            className="ion-padding-horizontal ion-margin-top"
+            color="tertiary"
+            href="https://www.linkedin.com/in/vithong"
+            target="_blank"
+          >
+            <IonIcon icon={logoLinkedin} slot="start" />
+            Recommend / Endorse me
+          </IonButton>
 
-        <IonCard>
-          <IonCardContent>
-            <div style={{ textAlign: "center", marginBottom: 8 }}>
-              <IonCardSubtitle color="primary">More Info</IonCardSubtitle>
-            </div>
-            <IonLabel text-wrap>
-              Dear friends and network,
-              <br />
-              It is my pleasure to specially invite you to join me for a
-              Graduation Photoshoot
-              <br />
-              When:{" "}
-              <IonText className="text-highlight">
-                Wednesday (15th December) from 3pm to 4.30pm
-              </IonText>
-              <br />
-              Where:{" "}
-              <IonText className="text-highlight">
-                University of Wollongong (Duck Pond Lawn meet up point)
-              </IonText>
-              <br />
-              Please be noticed that you will be required to check-in using{" "}
-              <IonText className="text-highlight">
-                Service NSW QR Code
-              </IonText>{" "}
-              and you will need to bring your{" "}
-              <IonText className="text-highlight">
-                COVID-19 vaccination certificate
-              </IonText>
-              <br />
-              <IonText className="text-highlight">A face mask</IonText> is
-              required for all indoor areas on campus
-              <br />
-              The best parking will be in the{" "}
-              <IonText className="text-highlight">
-                P2 Main car park
-              </IonText>{" "}
-              (free of charge)
-              <br />
-              Best regards,
-              <br />
-              Viet Hoang Nguyen.
-            </IonLabel>
-          </IonCardContent>
-        </IonCard>
-        <IonButton
-          expand="block"
-          className="ion-padding-horizontal"
-          onClick={() => history.push("/addnew")}
-        >
-          <IonIcon icon={mail} slot="start" />
-          Write me a Graduation Card
-        </IonButton>
-        <IonButton
-          expand="block"
-          className="ion-padding-horizontal ion-margin-top"
-          color="tertiary"
-          href="https://www.linkedin.com/in/vithong"
-          target="_blank"
-        >
-          <IonIcon icon={logoLinkedin} slot="start" />
-          Recommend / Endorse me
-        </IonButton>
-
-        {/* <IonListHeader>My UniLife</IonListHeader>
+          {/* <IonListHeader>My UniLife</IonListHeader>
         <IonGrid className="ion-no-padding">
           <IonRow className="ion-padding-horizontal">
             <IonCol className="ion-no-padding">
@@ -273,9 +278,10 @@ const Tab1: React.FC = () => {
             </IonCard>
           </IonSlide>
         </IonSlides> */}
-        <br />
-        <br />
-        <br />
+          <br />
+          <br />
+          <br />
+        </div>
       </IonContent>
     </IonPage>
   );
